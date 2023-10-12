@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>도서 대출 시스템</title>
+</head>
+<body>
+    <h1>도서 대출 시스템</h1>
+    <h2>멤버 정보</h2>
+    <ul>
+        {% for member_name in members %}
+            <li>
+                {{ member_name }}
+                <form method="POST" action="/delete_member">
+                    <input type="hidden" name="member_name" value="{{ member_name }}">
+                    <button type="submit">멤버 삭제</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>책 상태 정보</h2>
+    <ul>
+        {% for book_title, status in books.items() %}
+            <li>
+                {{ book_title }} - {{ status }}
+                <form method="POST" action="/delete_book">
+                    <input type="hidden" name="book_title" value="{{ book_title }}">
+                    <button type="submit">책 삭제</button>
+                </form>
+                <form method="POST" action="/borrow_book">
+                    <input type="hidden" name="book_title" value="{{ book_title }}">
+                    <select name="member_name">
+                        {% for member_name in members %}
+                            <option value="{{ member_name }}">{{ member_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">책 대출</button>
+                </form>
+                <form method="POST" action="/return_book">
+                    <input type="hidden" name="book_title" value="{{ book_title }}">
+                    <select name="member_name">
+                        {% for member_name in members %}
+                            <option value="{{ member_name }}">{{ member_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">책 반납</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>멤버 추가</h2>
+    <form method="POST" action="/add_member">
+        <input type="text" name="member_name" placeholder="멤버 이름" required>
+        <button type="submit">멤버 추가</button>
+    </form>
+
+    <h2>책 추가</h2>
+    <form method="POST" action="/add_book">
+        <input type="text" name="book_title" placeholder="책 제목" required>
+        <button type="submit">책 추가</button>
+    </form>
+</body>
+</html>
