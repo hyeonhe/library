@@ -16,6 +16,7 @@ print(f"곱셈 결과: {multiplication}")
 
 # 나눗셈 연산을 수행하고 결과를 출력합니다.
 # 나눗셈 시 두 번째 숫자가 0인 경우 예외 처리를 해야 합니다.
+
 if num2 != 0:
     division = num1 / num2
     print(f"나눗셈 결과: {division}")
